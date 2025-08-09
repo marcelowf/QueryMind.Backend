@@ -1,0 +1,7 @@
+type Query {
+  user(email: String!): User
+  users: [User!]!
+  
+  conversations(userId: ID!): [Conversation!]!
+  conversation(id: ID!): Conversation
+}

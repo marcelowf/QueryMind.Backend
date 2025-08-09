@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\QueryMind.Service\QueryMind.Service.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="GraphQL.MicrosoftDI" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "QueryMind.Presentation": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

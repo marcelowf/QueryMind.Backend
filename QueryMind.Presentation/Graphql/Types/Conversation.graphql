@@ -1,0 +1,7 @@
+type Conversation {
+  id: ID!
+  userId: ID!
+  name: String
+  messages: [Message!]!
+  isDeleted: Boolean!
+}

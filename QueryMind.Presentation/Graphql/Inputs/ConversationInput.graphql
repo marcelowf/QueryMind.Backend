@@ -1,0 +1,9 @@
+input CreateConversationInput {
+  name: String
+  userId: ID!
+}
+
+input SendMessageInput {
+  conversationId: ID!
+  content: String!
+}

@@ -1,0 +1,67 @@
+name: QueryMind-Backend-CI
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: Azure Pipelines
+
+variables:
+  RestoreBuildProjects: "**/*.csproj"
+  TestProjects: "**/*Tests.csproj"
+  BuildConfiguration: "Release"
+
+steps:
+  - task: ExtractFiles@1
+    displayName: "Extract Files"
+    inputs:
+      destinationFolder: "$(Agent.TempDirectory)"
+      cleanDestinationFolder: false
+
+  - task: UseDotNet@2
+    displayName: "DotNet Install"
+    inputs:
+      version: 8.x
+
+  - task: DotNetCoreCLI@2
+    displayName: "DotNet Restore"
+    inputs:
+      command: restore
+      projects: "$(RestoreBuildProjects)"
+
+  - task: DotNetCoreCLI@2
+    displayName: "DotNet Build"
+    inputs:
+      projects: "$(RestoreBuildProjects)"
+      arguments: "--configuration $(BuildConfiguration)"
+
+  # - task: DotNetCoreCLI@2
+  #   displayName: "DotNet Test"
+  #   inputs:
+  #     command: test
+  #     projects: "$(TestProjects)"
+  #     arguments: "--configuration $(BuildConfiguration)"
+
+  - task: DotNetCoreCLI@2
+    displayName: "DotNet Publish"
+    inputs:
+      command: publish
+      publishWebProjects: true
+      arguments: "--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)"
+      zipAfterPublish: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifacts"
+    inputs:
+      PathtoPublish: "$(build.artifactstagingdirectory)"
+      artifactName: "drop"
+    condition: succeededOrFailed()
+
+  - task: DeleteFiles@1
+    displayName: "Clean Artifacts"
+    condition: succeeded()
+    inputs:
+      SourceFolder: "$(build.artifactstagingdirectory)"
+      Contents: "**"

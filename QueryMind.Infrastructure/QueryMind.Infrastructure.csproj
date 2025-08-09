@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\QueryMind.Domain\QueryMind.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

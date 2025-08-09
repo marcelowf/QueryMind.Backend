@@ -1,0 +1,40 @@
+name: QueryMind-Backend-CD
+
+trigger: none
+
+pool:
+  name: Azure Pipelines
+
+resources:
+  pipelines:
+    - pipeline: backend-continuous-integration
+      source: QueryMind-Backend-CI
+      trigger:
+        branches:
+          include:
+            - main
+    - pipeline: continuous-provisioning
+      source: QueryMind-Infrastructure
+      trigger: true
+
+variables:
+  - group: querymind-qa
+
+stages:
+  - stage: Deploy
+    jobs:
+      - job: DeployWebApp
+        steps:
+          - download: backend-continuous-integration
+            artifact: drop
+
+          - task: AzureRmWebAppDeployment@4
+            displayName: "Deploy Web App"
+            inputs:
+              ConnectionType: "AzureRM"
+              ConnectedServiceName: "$(service_connection_guid)"
+              appType: "webAppLinux"
+              WebAppName: "app-querymind-backend-$(env_suffix)"
+              StartupCommand: "dotnet QueryMind.Presentation.dll"
+              packageForLinux: "$(Pipeline.Workspace)/backend-continuous-integration/drop/**/*.zip"
+              RuntimeStack: "DOTNETCORE|8.0"

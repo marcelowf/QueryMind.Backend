@@ -1,0 +1,12 @@
+# import * from "Inputs/ConversationInput.graphql"
+# import * from "Inputs/UserInput.graphql"
+
+# import * from "Mutations/Mutation.graphql"
+
+# import * from "Payloads/AuthPayload.graphql"
+
+# import * from "Queries/Query.graphql"
+
+# import * from "Types/User.graphql"
+# import * from "Types/Conversation.graphql"
+# import * from "Types/Message.graphql"

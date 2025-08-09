@@ -1,0 +1,8 @@
+type Mutation {
+  register(input: RegisterInput!): User!
+  login(input: LoginInput!): User!
+  
+  createConversation(input: CreateConversationInput!): Conversation!
+  deleteConversation(userId: ID!): Conversation!
+  sendMessage(input: SendMessageInput!): Message!
+}
