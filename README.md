@@ -4,8 +4,6 @@
 
 ### 🚀 **Sobre o Projeto**  
 
----
-
 #### 🔧 Pré-requisitos
 
 - .NET SDK 8.0
@@ -13,8 +11,6 @@
 - Azure CLI
 - Acesso a uma assinatura Azure
 - Git
-
----
 
 ## ⚙️ Configuração do Ambiente
 
@@ -24,8 +20,6 @@ Siga estes passos para configurar seu ambiente de desenvolvimento:
     Clone este repositório em sua máquina local.
 2. **Variáveis de Ambiente / Secrets:**
     No projeto QueryMind.Presentation, edite o arquivo appsettings.json para configurar as variáveis necessárias, como strings de conexão e chaves de serviços externos. Alternativamente, você pode modificar as referências ao Azure Key Vault.
-
----
 
 #### 📌 **Como Rodar o Projeto**  
 
@@ -48,13 +42,9 @@ docker-compose up
 dotnet test
 ```
 
----
-
 #### 🧰 CI/CD
 
 O QueryMind utiliza Azure DevOps Pipelines para automatizar o processo de CI/CD usando os arquivos yml localizados em Configuration.AzureDevOps/
-
----
 
 #### 📝 Licença
 
