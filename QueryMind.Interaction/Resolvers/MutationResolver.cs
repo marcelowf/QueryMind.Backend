@@ -4,7 +4,7 @@ using QueryMind.Domain.Entities;
 using QueryMind.Interaction.Inputs;
 using QueryMind.Interaction.Models;
 using QueryMind.Interaction.Types;
-using QueryMind.Service.interfaces;
+using QueryMind.Service.Interfaces;
 
 namespace QueryMind.Interaction.Resolvers
 {
@@ -15,70 +15,60 @@ namespace QueryMind.Interaction.Resolvers
             Name = "Mutation";
 
             Field<UserType>("register").Argument<RegisterInputType>("input", "Registro de usuário.")
-                .Resolve(context =>
+                .ResolveAsync(async context =>
                 {
                     var registerInput = context.GetArgument<RegisterModel>("input");
 
-                    return new User
-                    {
-                        Id = 1,
-                        Name = registerInput.Name,
-                        Email = registerInput.Email,
-                        Password = registerInput.Password
-                    };
+                    // auto maper de Model para entitir
+                    // validar e hashear a senha
+
+                    var result = await userService.RegisterAsync(registerInput.Name, registerInput.Email, registerInput.Password);
+                    return result;
                 });
 
             Field<UserType>("login").Argument<LoginInputType>("input", "Login de usuário.")
-                .Resolve(context =>
+                .ResolveAsync(async context =>
                 {
                     var loginInput = context.GetArgument<LoginModel>("input");
 
-                    return new User
-                    {
-                        Id = 1,
-                        Name = "Logado",
-                        Email = loginInput.Email,
-                        Password = loginInput.Password
-                    };
+                    // auto maper de Model para entitir
+                    // validar e hashear a senha
+
+                    var result = await userService.LoginAsync(loginInput.Email, loginInput.Password);
+                    return result;
                 });
 
             Field<ConversationType>("createConversation").Argument<CreateConversationInputType>("input", "Criar conversa.")
-                .Resolve(context =>
+                .ResolveAsync(async context =>
                 {
                     var conversationInput = context.GetArgument<CreateConversationModel>("input");
 
-                    return new Conversation
-                    {
-                        Id = 1,
-                        UserId = conversationInput.UserId,
-                        Name = conversationInput.Name,
-                        Messages = new List<Message>(),
-                        IsDeleted = false
-                    };
+                    // auto maper de Model para entitir
+
+                    var result = await conversationService.CreateConversationAsync(conversationInput.Name, conversationInput.UserId);
+                    return result;
                 });
 
             Field<bool>("deleteConversation").Argument<DeleteConversationInputType>("input", "Deletar conversa.")
-                .Resolve(context =>
+                .ResolveAsync(async context =>
                 {
-                    Console.WriteLine("Cheuei na Mutaion.cs");
                     var conversationInput = context.GetArgument<DeleteConversationModel>("input");
-                    Console.WriteLine("IDs: " + conversationInput.ConversationId + " - " + conversationInput.UserId);
-                    // Logica e tals ...
-                    return true;
+
+                    // auto maper de Model para entitir
+
+                    var result = await conversationService.DeleteConversationAsync(conversationInput.ConversationId);
+                    return result;
                 });
 
             Field<MessageType>("sendMessage").Argument<SendMessageInputType>("input", "Enviar mensagem.")
-                .Resolve(context =>
+                .ResolveAsync(async context =>
                 {
                     var messageInput = context.GetArgument<SendMessageModel>("input");
                     // messageInput.ConversationId vai ser para jogar tudo junto no MongoDB
-                    return new Message
-                    {
-                        Id = 1,
-                        Role = "Bot", // ou User --- Fazer Enum?
-                        Content = messageInput.Content,
-                        Timestamp = DateTime.UtcNow
-                    };
+                    // auto maper de Model para entitir
+
+                    var result = await conversationService.SendMessageAsync(messageInput.ConversationId, messageInput.Content);
+                    return result;
                 });
         }
     }

@@ -3,7 +3,7 @@ name: QueryMind-Backend-CI
 trigger:
   branches:
     include:
-      - main
+      - master
 
 pool:
   name: Azure Pipelines
