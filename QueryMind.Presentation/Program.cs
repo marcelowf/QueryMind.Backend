@@ -116,7 +116,13 @@ builder.Services.AddSingleton<ConversationType>();
 builder.Services.AddSingleton<MessageType>();
 builder.Services.AddSingleton<RegisterInputType>();
 builder.Services.AddSingleton<LoginInputType>();
+builder.Services.AddSingleton<SendMessageInputType>();
+builder.Services.AddSingleton<CreateConversationInputType>();
+builder.Services.AddSingleton<DeleteConversationInputType>();
 
+builder.Services.AddSingleton<CreateConversationModel>();
+builder.Services.AddSingleton<DeleteConversationModel>();
+builder.Services.AddSingleton<SendMessageModel>();
 builder.Services.AddSingleton<RegisterModel>();
 builder.Services.AddSingleton<LoginModel>();
 

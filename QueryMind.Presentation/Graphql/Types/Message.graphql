@@ -2,5 +2,5 @@ type Message {
   id: ID!
   role: String!
   content: String!
-  timestamp: String!
+  timestamp: DateTime!
 }

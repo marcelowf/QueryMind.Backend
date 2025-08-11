@@ -3,6 +3,11 @@ input CreateConversationInput {
   userId: ID!
 }
 
+input DeleteConversationInput {
+  conversationId: ID!
+  userId: ID!
+}
+
 input SendMessageInput {
   conversationId: ID!
   content: String!

@@ -11,6 +11,11 @@ namespace QueryMind.Interaction.Resolvers
         public QueryResolver(IUserService userService)
         {
             Name = "Query";
+
+            // user por email
+            // users buscar users
+            // conversations por userId
+            // conversation por id
         }
     }
 }

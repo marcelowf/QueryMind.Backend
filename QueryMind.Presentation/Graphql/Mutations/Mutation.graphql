@@ -3,6 +3,6 @@ type Mutation {
   login(input: LoginInput!): User!
   
   createConversation(input: CreateConversationInput!): Conversation!
-  deleteConversation(userId: ID!): Conversation!
+  deleteConversation(input: DeleteConversationInput!): Boolean!
   sendMessage(input: SendMessageInput!): Message!
 }

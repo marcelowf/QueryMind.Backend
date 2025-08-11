@@ -41,7 +41,45 @@ namespace QueryMind.Interaction.Resolvers
                         Password = loginInput.Password
                     };
                 });
-        }
 
+            Field<ConversationType>("createConversation").Argument<CreateConversationInputType>("input", "Criar conversa.")
+                .Resolve(context =>
+                {
+                    var conversationInput = context.GetArgument<CreateConversationModel>("input");
+
+                    return new Conversation
+                    {
+                        Id = 1,
+                        UserId = conversationInput.UserId,
+                        Name = conversationInput.Name,
+                        Messages = new List<Message>(),
+                        IsDeleted = false
+                    };
+                });
+
+            Field<bool>("deleteConversation").Argument<DeleteConversationInputType>("input", "Deletar conversa.")
+                .Resolve(context =>
+                {
+                    Console.WriteLine("Cheuei na Mutaion.cs");
+                    var conversationInput = context.GetArgument<DeleteConversationModel>("input");
+                    Console.WriteLine("IDs: " + conversationInput.ConversationId + " - " + conversationInput.UserId);
+                    // Logica e tals ...
+                    return true;
+                });
+
+            Field<MessageType>("sendMessage").Argument<SendMessageInputType>("input", "Enviar mensagem.")
+                .Resolve(context =>
+                {
+                    var messageInput = context.GetArgument<SendMessageModel>("input");
+                    // messageInput.ConversationId vai ser para jogar tudo junto no MongoDB
+                    return new Message
+                    {
+                        Id = 1,
+                        Role = "Bot", // ou User --- Fazer Enum?
+                        Content = messageInput.Content,
+                        Timestamp = DateTime.UtcNow
+                    };
+                });
+        }
     }
 }
