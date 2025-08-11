@@ -4,4 +4,9 @@
     <ProjectReference Include="..\QueryMind.Domain\QueryMind.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="MongoDB.Driver" />
+  </ItemGroup>
+
 </Project>

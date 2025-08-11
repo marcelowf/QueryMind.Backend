@@ -17,10 +17,13 @@ using QueryMind.Interaction;
 using QueryMind.Interaction.Types;
 using QueryMind.Interaction.Resolvers;
 using QueryMind.Domain.Entities;
-using QueryMind.Service.interfaces;
+using QueryMind.Service.Interfaces;
 using QueryMind.Service.Services;
 using QueryMind.Interaction.Models;
 using QueryMind.Interaction.Inputs;
+using QueryMind.Infrastructure.Interfaces;
+using QueryMind.Infrastructure.Repositories;
+using QueryMind.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -114,6 +117,7 @@ builder.Services.AddSingleton<Message>();
 builder.Services.AddSingleton<UserType>();
 builder.Services.AddSingleton<ConversationType>();
 builder.Services.AddSingleton<MessageType>();
+
 builder.Services.AddSingleton<RegisterInputType>();
 builder.Services.AddSingleton<LoginInputType>();
 builder.Services.AddSingleton<SendMessageInputType>();
@@ -126,8 +130,12 @@ builder.Services.AddSingleton<SendMessageModel>();
 builder.Services.AddSingleton<RegisterModel>();
 builder.Services.AddSingleton<LoginModel>();
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IConversationRepository, ConversationRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IConversationService, ConversationService>();
+
+builder.Services.AddSingleton<NoSqlContext>();
 
 builder.Services.AddSingleton<QueryResolver>();
 builder.Services.AddSingleton<MutationResolver>();

@@ -12,7 +12,7 @@ resources:
       trigger:
         branches:
           include:
-            - main
+            - master
     - pipeline: continuous-provisioning
       source: QueryMind-Infrastructure
       trigger: true
