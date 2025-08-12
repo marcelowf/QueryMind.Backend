@@ -2,11 +2,13 @@ using QueryMind.Domain.Entities;
 
 namespace QueryMind.Infrastructure.Interfaces;
 
-public interface IConversationRepository
+public interface IUserRepository
 {
-    Task<List<Conversation>> GetAllAsync();
-    Task<Conversation?> GetByIdAsync(int id);
-    Task CreateAsync(Conversation conversation);
-    Task UpdateAsync(int id, Conversation conversation);
+    Task<List<User>> GetAllAsync();
+    Task<User?> GetByIdAsync(int id);
+    Task CreateAsync(User user);
+    Task UpdateAsync(int id, User user);
     Task DeleteAsync(int id);
+    Task<User?> GetByEmailAsync(string email);
+    Task<User> GetLastUserAsync();
 }

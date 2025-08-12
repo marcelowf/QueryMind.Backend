@@ -4,4 +4,8 @@
     <ProjectReference Include="..\QueryMind.Infrastructure\QueryMind.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" />
+  </ItemGroup>
+
 </Project>

@@ -5,7 +5,7 @@ using QueryMind.Infrastructure.Interfaces;
 
 namespace QueryMind.Infrastructure.Repositories;
 
-public class UserRepository: IUserRepository
+public class UserRepository : IUserRepository
 {
     private readonly IMongoCollection<User> _users;
 
@@ -24,10 +24,15 @@ public class UserRepository: IUserRepository
         return await _users.Find(u => u.Id == id).FirstOrDefaultAsync();
     }
 
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+        return await _users.Find(u => u.Email == email).FirstOrDefaultAsync();
+    }
+
     public async Task CreateAsync(User user)
     {
         user.Id = 11;
-        Console.WriteLine("vou inserir os dados:" + user.Id + " " + user.Email + " " + user.Name + " " + user.Password); 
+        Console.WriteLine("vou inserir os dados:" + user.Id + " " + user.Email + " " + user.Name + " " + user.Password);
         await _users.InsertOneAsync(user);
     }
 
@@ -39,5 +44,13 @@ public class UserRepository: IUserRepository
     public async Task DeleteAsync(int id)
     {
         await _users.DeleteOneAsync(u => u.Id == id);
+    }
+
+    public async Task<User> GetLastUserAsync()
+    {
+        return await _users
+            .Find(FilterDefinition<User>.Empty)
+            .SortByDescending(u => u.Id)
+            .FirstOrDefaultAsync();
     }
 }

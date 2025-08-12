@@ -1,6 +1,5 @@
 using GraphQL;
 using GraphQL.Types;
-using QueryMind.Domain.Entities;
 using QueryMind.Interaction.Inputs;
 using QueryMind.Interaction.Models;
 using QueryMind.Interaction.Types;
@@ -18,10 +17,6 @@ namespace QueryMind.Interaction.Resolvers
                 .ResolveAsync(async context =>
                 {
                     var registerInput = context.GetArgument<RegisterModel>("input");
-
-                    // auto maper de Model para entitir
-                    // validar e hashear a senha
-
                     var result = await userService.RegisterAsync(registerInput.Name, registerInput.Email, registerInput.Password);
                     return result;
                 });
@@ -30,10 +25,6 @@ namespace QueryMind.Interaction.Resolvers
                 .ResolveAsync(async context =>
                 {
                     var loginInput = context.GetArgument<LoginModel>("input");
-
-                    // auto maper de Model para entitir
-                    // validar e hashear a senha
-
                     var result = await userService.LoginAsync(loginInput.Email, loginInput.Password);
                     return result;
                 });
@@ -42,9 +33,6 @@ namespace QueryMind.Interaction.Resolvers
                 .ResolveAsync(async context =>
                 {
                     var conversationInput = context.GetArgument<CreateConversationModel>("input");
-
-                    // auto maper de Model para entitir
-
                     var result = await conversationService.CreateConversationAsync(conversationInput.Name, conversationInput.UserId);
                     return result;
                 });
@@ -53,9 +41,6 @@ namespace QueryMind.Interaction.Resolvers
                 .ResolveAsync(async context =>
                 {
                     var conversationInput = context.GetArgument<DeleteConversationModel>("input");
-
-                    // auto maper de Model para entitir
-
                     var result = await conversationService.DeleteConversationAsync(conversationInput.ConversationId);
                     return result;
                 });
@@ -64,9 +49,6 @@ namespace QueryMind.Interaction.Resolvers
                 .ResolveAsync(async context =>
                 {
                     var messageInput = context.GetArgument<SendMessageModel>("input");
-                    // messageInput.ConversationId vai ser para jogar tudo junto no MongoDB
-                    // auto maper de Model para entitir
-
                     var result = await conversationService.SendMessageAsync(messageInput.ConversationId, messageInput.Content);
                     return result;
                 });
