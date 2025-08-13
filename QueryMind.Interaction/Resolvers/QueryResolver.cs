@@ -1,7 +1,6 @@
 
 using GraphQL;
 using GraphQL.Types;
-using QueryMind.Domain.Entities;
 using QueryMind.Interaction.Types;
 using QueryMind.Service.Interfaces;
 

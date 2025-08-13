@@ -37,7 +37,7 @@ namespace QueryMind.Service.Services
 
         public async Task<Message> SendMessageAsync(int conversationId, string content)
         {
-            // conversationId vai ser para jogar tudo junto no MongoDB
+            // conversationId vai ser para jogar tudo junto na colelction de conversation{Messages[]} do MongoDB
             var conversation = await _conversationRepository.GetByIdAsync(conversationId);
             if (conversation == null)
                 throw new Exception("Conversation not found.");
