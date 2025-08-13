@@ -154,7 +154,21 @@ try
 }
 catch (Exception ex)
 {
-    Console.WriteLine("❌ MongoDB is not available.\n" + ex);
+    Console.WriteLine($"❌ MongoDB is not available.\n{ex}");
+}
+#endregion
+
+#region Redis
+try
+{
+    var redisConnectionString = builder.Configuration["RedisConnectionStrings:DefaultConnection"];
+    var redis = await StackExchange.Redis.ConnectionMultiplexer.ConnectAsync(redisConnectionString);
+    builder.Services.AddSingleton(redis);
+    Console.WriteLine("✅ Redis configured.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"❌ Redis is not available.\n{ex}");
 }
 #endregion
 
