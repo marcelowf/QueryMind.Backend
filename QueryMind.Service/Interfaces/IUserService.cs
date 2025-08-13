@@ -8,5 +8,6 @@ namespace QueryMind.Service.Interfaces
         Task<User?> LoginAsync(string email, string password);
         Task<List<User>> GetAllAsync();
         Task<User?> GetByIdAsync(int id);
+        Task<User?> GetByEmailAsync(string email);
     }
 }
