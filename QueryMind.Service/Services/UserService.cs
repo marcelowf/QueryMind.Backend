@@ -18,6 +18,10 @@ namespace QueryMind.Service.Services
             if (string.IsNullOrWhiteSpace(password))
                 throw new Exception("Senha não pode ser vazia.");
 
+            var existingUser = await _userRepository.GetByEmailAsync(email);
+            if (existingUser != null)
+                throw new Exception("Já existe um usuário cadastrado com este e-mail.");
+
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
 
             var lastUser = await _userRepository.GetLastUserAsync();
@@ -57,5 +61,10 @@ namespace QueryMind.Service.Services
         {
             return await _userRepository.GetByIdAsync(id);
         }
+        
+        public async Task<User?> GetByEmailAsync(string email)
+        {
+            return await _userRepository.GetByEmailAsync(email);
+        } 
     }
 }

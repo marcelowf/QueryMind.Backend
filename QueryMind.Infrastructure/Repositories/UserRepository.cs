@@ -31,8 +31,6 @@ public class UserRepository : IUserRepository
 
     public async Task CreateAsync(User user)
     {
-        user.Id = 11;
-        Console.WriteLine("vou inserir os dados:" + user.Id + " " + user.Email + " " + user.Name + " " + user.Password);
         await _users.InsertOneAsync(user);
     }
 

@@ -1,5 +1,4 @@
 type Query {
-  teste(): User
   user(email: String!): User
   users: [User!]!
   
